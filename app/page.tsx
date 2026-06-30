@@ -4,13 +4,13 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 
-import NavBar       from "@/components/NavBar";
-import Marquee      from "@/components/Marquee";
-import Timeline     from "@/components/Timeline";
-import ProjectCard  from "@/components/ProjectCard";
+import NavBar from "@/components/NavBar";
+import Marquee from "@/components/Marquee";
+import Timeline from "@/components/Timeline";
+import ProjectCard from "@/components/ProjectCard";
 import SectionLabel from "@/components/SectionLabel";
 import type { TimelineEntry } from "@/components/Timeline";
-import type { Project }       from "@/components/ProjectCard";
+import type { Project } from "@/components/ProjectCard";
 
 /* ─── DATA ───────────────────────────────────────────────────────────────────── */
 
@@ -99,17 +99,17 @@ const PROJECTS: Project[] = [
 
 /* ─── ANIMATIO VARIANTS ─────────────────────────────────────────────────────── */
 const fadeUp = {
-  hidden: { 
-    opacity: 0, 
-    y: 20 
+  hidden: {
+    opacity: 0,
+    y: 20
   },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { 
-      duration: 0.6, 
+    transition: {
+      duration: 0.6,
       ease: [0.22, 1, 0.36, 1] as [number, number, number, number]
-    } 
+    }
   },
 };
 
@@ -118,7 +118,7 @@ export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const heroY       = useTransform(scrollYProgress, [0, 0.6], ["0%", "8%"]);
+  const heroY = useTransform(scrollYProgress, [0, 0.6], ["0%", "8%"]);
 
   return (
     <>
@@ -259,8 +259,8 @@ export default function Home() {
             variants={fadeUp}
             initial="hidden"
             viewport={{ once: true }}
-            >
-          
+          >
+
             <SectionLabel>About</SectionLabel>
 
             <h2
