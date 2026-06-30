@@ -1,0 +1,566 @@
+"use client";
+
+import { useRef } from "react";
+import Image from "next/image";
+
+import NavBar from "@/components/NavBar";
+import Marquee from "@/components/Marquee";
+import Timeline from "@/components/Timeline";
+import ProjectCard from "@/components/ProjectCard";
+import SectionLabel from "@/components/SectionLabel";
+import type { TimelineEntry } from "@/components/Timeline";
+import type { Project } from "@/components/ProjectCard";
+
+/* ─── DATA ───────────────────────────────────────────────────────────────────── */
+
+const SKILLS_ROW_A = [
+  "C",
+  "C++",
+  "Python",
+  "Java",
+  "WordPress",
+  "Web Development",
+  "HTML & CSS",
+  "Problem Solving",
+];
+
+const SKILLS_ROW_B = [
+  "Data Science",
+  "Machine Learning",
+  "AI / ML Concepts",
+  "Adaptability",
+  "Team Collaboration",
+  "Version Control",
+  "Linux Basics",
+  "Quick Learning",
+];
+
+const TIMELINE: TimelineEntry[] = [
+  {
+    type: "work",
+    period: "Jun 2025 — Aug 2025",
+    role: "Web Development Intern",
+    org: "Teztecch",
+    location: "Nagpur, India",
+    bullets: [
+      "Designed, customised, and managed WordPress sites for real client deliverables.",
+      "Collaborated cross-functionally to ship functional, client-focused web solutions.",
+      "Sharpened adaptability and problem-solving in a fast-paced production environment.",
+    ],
+  },
+  {
+    type: "edu",
+    period: "Ongoing",
+    role: "Diploma in Computer Engineering",
+    org: "Polytechnic / Technical Institute",
+    location: "Wardha, Maharashtra",
+    bullets: [
+      "Core coursework: Data Structures, OOP, Operating Systems, DBMS.",
+      "Building a strong foundation in C, C++, Java, and Python.",
+    ],
+  },
+];
+
+const PROJECTS: Project[] = [
+  {
+    index: "01",
+    title: "WordPress Client Sites",
+    description:
+      "Designed and deployed production-ready WordPress websites during my internship at Teztecch — handling theme customisation, plugin integration, and client feedback cycles.",
+    stack: ["WordPress", "PHP", "CSS", "UI/UX"],
+    year: "2025",
+  },
+  {
+    index: "02",
+    title: "Python Data Explorer",
+    description:
+      "A personal learning project exploring core data-science workflows — loading CSV datasets, computing statistics, and visualising trends using Python fundamentals.",
+    stack: ["Python", "CSV", "Pandas (learning)", "Matplotlib"],
+    year: "2025",
+  },
+  {
+    index: "03",
+    title: "C++ CLI Utilities",
+    description:
+      "Collection of command-line programs built to practise algorithmic thinking — sorting visualisers, a student grade manager, and a basic inventory tracker.",
+    stack: ["C++", "CLI", "OOP", "File I/O"],
+    year: "2024",
+  },
+  {
+    index: "04",
+    title: "Java Console Apps",
+    description:
+      "Object-oriented Java mini-projects covering inheritance, polymorphism, and exception handling, including a simple bank account simulation.",
+    stack: ["Java", "OOP", "Console I/O"],
+    year: "2024",
+  },
+];
+
+/* ─── ANIMATION VARIANTS ─────────────────────────────────────────────────────── */
+const fadeUp = {
+  hidden: { opacity: 0, y: 48 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+/* ─── PAGE ───────────────────────────────────────────────────────────────────── */
+export default function Home() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const heroY = useTransform(scrollYProgress, [0, 0.6], ["0%", "8%"]);
+
+  return (
+    <>
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>ADITYA MUKE — GHOST PROTOCOL</title>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+
+          <style>
+
+          </style>
+        </head>
+
+        <body>
+
+          <!-- CURSOR -->
+          <div id="cursor"></div>
+          <div id="cursor-dot"></div>
+          <div id="cursor-coords">0,0</div>
+
+          <!-- CLASSIFICATION BAR -->
+          <div id="classbar">
+            <span>⬤ UNCLASSIFIED</span>
+            <span class="blink">ACCESS LEVEL: PUBLIC</span>
+            <span>SUBJECT: ADITYA MUKE — PORTFOLIO</span>
+            <span class="blink">⬤ LIVE</span>
+          </div>
+
+          <!-- NAV -->
+          <nav>
+            <div class="nav-id">FILE_ID: <strong>AM-2025-01</strong></div>
+            <ul class="nav-links">
+              <li><a href="#about" data-num="01">Profile</a></li>
+              <li><a href="#skills" data-num="02">Capabilities</a></li>
+              <li><a href="#projects" data-num="03">Operations</a></li>
+              <li><a href="#contact" data-num="04">Contact</a></li>
+            </ul>
+            <div class="nav-status"><div class="status-dot"></div><span>ONLINE</span></div>
+          </nav>
+
+          <!-- ━━━ HERO ━━━ -->
+          <section id="hero">
+            <div class="grid-bg"></div>
+
+            <div class="hero-left">
+              <div>
+                <div class="hero-eyebrow">SUBJECT FILE — WARDHA, IN — 2025</div>
+                <h1 class="hero-name" id="heroName">
+                  <span class="letter-row" data-word="ADITYA"></span>
+                  <span class="letter line2" data-word="MUKE" style="--rx:0;--ry:0;--rot:0deg">MUKE<span class="acid">.</span></span>
+                </h1>
+                <p class="hero-tagline">
+                  From raw <em>C pointers</em> to real web products —
+                  an engineer at the start of his story,
+                  moving with intent.
+                </p>
+              </div>
+              <div class="hero-meta">
+                <div class="hero-meta-cell">
+                  <span class="label">Status</span>
+                  <span class="value">Active</span>
+                </div>
+                <div class="hero-meta-cell">
+                  <span class="label">Location</span>
+                  <span class="value">Wardha, IN</span>
+                </div>
+                <div class="hero-meta-cell">
+                  <span class="label">Role</span>
+                  <span class="value">Dev Intern</span>
+                </div>
+                <div class="hero-meta-cell">
+                  <span class="label">Focus</span>
+                  <span class="value">AI / ML</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-right">
+              <div class="ghost-letter">A</div>
+              <div class="hero-profile">
+                <div class="profile-frame"></div>
+                <div class="profile-caption">SUBJECT: <strong>ADITYA MUKE</strong> / REF: AM-01</div>
+              </div>
+              <div class="redacted-block">
+                <div class="redacted-label">Declassified profile</div>
+                <p class="file-text">
+                  NAME: ADITYA MUKE &nbsp;|&nbsp; CODE: <span class="redact" title="Click to reveal">█████████</span><br />
+                  AFFILIATION: <span class="redact">████████████</span> INSTITUTE<br />
+                  SPECIALISATION: WEB DEV / DATA SCIENCE<br />
+                  INTERNSHIP: <span class="redact">TEZTECCH</span> — NAGPUR<br />
+                  THREAT LEVEL: <span class="redact" style="color:var(--acid)">CURIOUS</span>
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ━━━ ABOUT ━━━ -->
+          <section id="about">
+            <div class="section-header reveal">
+              <span class="section-num">01</span>
+              <h2 class="section-title">Profile</h2>
+              <div class="section-rule"></div>
+            </div>
+            <div class="about-grid">
+              <div class="about-left reveal reveal-delay-1">
+                <div class="manifesto scan-reveal">
+                  DEFINED<br />BY <span class="highlight">CODE</span>.<br />
+                  <span class="ghost">DRIVEN</span><br />
+                  <span class="ghost">BY</span> DATA.
+                </div>
+                <p class="bio-text">
+                  Hi — I'm <strong>Adi</strong>, a Computer Engineering student from Wardha who
+                  learned to think through the strictness of <strong>C and C++</strong>. The rules
+                  compilers enforce taught me more about logic than any textbook.
+                  <br /><br />
+                  I spent a summer building real WordPress sites at <strong>Teztecch, Nagpur</strong> —
+                  where deadlines are real, clients are impatient, and clean code is the only
+                  currency that matters.
+                  <br /><br />
+                  Now I'm chasing the edge where software meets intelligence: Python, data science,
+                  machine learning. Early days. Best days.
+                </p>
+                <div class="stat-row">
+                  <div class="stat-box">
+                    <span class="stat-num">01</span>
+                    <span class="stat-lbl">Internship</span>
+                  </div>
+                  <div class="stat-box">
+                    <span class="stat-num">04</span>
+                    <span class="stat-lbl">Languages</span>
+                  </div>
+                  <div class="stat-box">
+                    <span class="stat-num">∞</span>
+                    <span class="stat-lbl">Curiosity</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="about-col-divider"></div>
+
+              <div class="about-right reveal reveal-delay-2">
+                <div class="timeline">
+
+                  <div class="timeline-item" onclick="this.classList.toggle('open'); this.nextElementSibling.style.display = this.classList.contains('open') ? 'block' : 'none'">
+                    <div class="tl-year">Jun — Aug<br />2025</div>
+                    <div>
+                      <span class="tl-badge work">Work</span>
+                      <div class="tl-title">Web Dev Intern</div>
+                      <div class="tl-org">Teztecch — Nagpur, India</div>
+                    </div>
+                  </div>
+                  <ul class="tl-bullets" style="display:none">
+                    <li>Designed, customised, and shipped WordPress sites for real clients</li>
+                    <li>Collaborated with a team under deadline pressure on live projects</li>
+                    <li>Sharpened adaptability and problem-solving in a professional environment</li>
+                  </ul>
+
+                  <div class="timeline-item" onclick="this.classList.toggle('open'); this.nextElementSibling.style.display = this.classList.contains('open') ? 'block' : 'none'">
+                    <div class="tl-year">Ongoing</div>
+                    <div>
+                      <span class="tl-badge edu">Education</span>
+                      <div class="tl-title">Diploma — Comp. Eng.</div>
+                      <div class="tl-org">Technical Institute — Wardha, MH</div>
+                    </div>
+                  </div>
+                  <ul class="tl-bullets" style="display:none">
+                    <li>Core focus: Data Structures, OOP, Operating Systems, DBMS</li>
+                    <li>Languages: C, C++, Java, Python — built from first principles</li>
+                  </ul>
+
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ━━━ SKILLS ━━━ -->
+          <section id="skills">
+            <div class="grid-bg"></div>
+            <div class="section-header reveal">
+              <span class="section-num">02</span>
+              <h2 class="section-title">Capabilities</h2>
+              <div class="section-rule" style="background:#1a1a18"></div>
+            </div>
+
+            <div class="periodic-grid" id="periodicGrid">
+              <!-- injected by JS -->
+            </div>
+
+            <div style="padding: 0 40px 24px; display:flex; gap:24px; flex-wrap:wrap;">
+              <span style="font-family:var(--f-mono);font-size:9px;color:var(--smog);letter-spacing:0.2em;display:flex;align-items:center;gap:6px"><span style="width:24px;height:3px;background:rgba(200,255,0,0.5);display:block"></span>Languages</span>
+              <span style="font-family:var(--f-mono);font-size:9px;color:var(--smog);letter-spacing:0.2em;display:flex;align-items:center;gap:6px"><span style="width:24px;height:3px;background:rgba(100,180,255,0.5);display:block"></span>Frameworks</span>
+              <span style="font-family:var(--f-mono);font-size:9px;color:var(--smog);letter-spacing:0.2em;display:flex;align-items:center;gap:6px"><span style="width:24px;height:3px;background:rgba(255,160,80,0.5);display:block"></span>Tools</span>
+              <span style="font-family:var(--f-mono);font-size:9px;color:var(--smog);letter-spacing:0.2em;display:flex;align-items:center;gap:6px"><span style="width:24px;height:3px;background:rgba(180,100,255,0.5);display:block"></span>Soft Skills</span>
+            </div>
+            <div style="height:40px"></div>
+          </section>
+
+          <!-- ━━━ PROJECTS ━━━ -->
+          <section id="projects">
+            <div class="section-header reveal">
+              <span class="section-num">03</span>
+              <h2 class="section-title">Operations</h2>
+              <div class="section-rule"></div>
+            </div>
+            <div class="project-list">
+
+              <div class="proj-item reveal">
+                <div class="proj-num">01</div>
+                <div class="proj-body">
+                  <div class="proj-title">WordPress Client Sites</div>
+                  <p class="proj-desc">
+                    Production-ready websites delivered during internship at Teztecch —
+                    theme customisation, plugin integration, and client feedback cycles
+                    from brief to launch.
+                  </p>
+                </div>
+                <div class="proj-meta">
+                  <div class="proj-year">2025</div>
+                  <div class="proj-stack">
+                    <span>WordPress</span>
+                    <span>PHP</span>
+                    <span>CSS</span>
+                  </div>
+                  <div class="proj-arrow">↗</div>
+                </div>
+              </div>
+
+              <div class="proj-item reveal reveal-delay-1">
+                <div class="proj-num">02</div>
+                <div class="proj-body">
+                  <div class="proj-title">Python Data Explorer</div>
+                  <p class="proj-desc">
+                    A personal deep-dive into data science workflows — loading CSV datasets,
+                    computing statistics, and plotting trends with Python fundamentals as
+                    the starting point.
+                  </p>
+                </div>
+                <div class="proj-meta">
+                  <div class="proj-year">2025</div>
+                  <div class="proj-stack">
+                    <span>Python</span>
+                    <span>Pandas</span>
+                    <span>Matplotlib</span>
+                  </div>
+                  <div class="proj-arrow">↗</div>
+                </div>
+              </div>
+
+              <div class="proj-item reveal reveal-delay-2">
+                <div class="proj-num">03</div>
+                <div class="proj-body">
+                  <div class="proj-title">C++ CLI Utilities</div>
+                  <p class="proj-desc">
+                    A collection of command-line programs exploring algorithmic thinking —
+                    sorting visualisers, a grade manager, and an inventory tracker.
+                  </p>
+                </div>
+                <div class="proj-meta">
+                  <div class="proj-year">2024</div>
+                  <div class="proj-stack">
+                    <span>C++</span>
+                    <span>OOP</span>
+                    <span>File I/O</span>
+                  </div>
+                  <div class="proj-arrow">↗</div>
+                </div>
+              </div>
+
+              <div class="proj-item reveal reveal-delay-3">
+                <div class="proj-num">04</div>
+                <div class="proj-body">
+                  <div class="proj-title">Java Console Apps</div>
+                  <p class="proj-desc">
+                    Object-oriented Java mini-projects covering inheritance, polymorphism,
+                    and exception handling — including a bank account simulation.
+                  </p>
+                </div>
+                <div class="proj-meta">
+                  <div class="proj-year">2024</div>
+                  <div class="proj-stack">
+                    <span>Java</span>
+                    <span>OOP</span>
+                    <span>Console I/O</span>
+                  </div>
+                  <div class="proj-arrow">↗</div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- ━━━ CONTACT ━━━ -->
+          <section id="contact">
+            <div class="grid-bg"></div>
+            <div class="section-header reveal">
+              <span class="section-num">04</span>
+              <h2 class="section-title">Connect</h2>
+              <div class="section-rule"></div>
+            </div>
+            <div class="contact-body">
+              <div>
+                <div class="contact-cta scan-reveal">
+                  LET'S<br />
+                  BUILD<br />
+                  <span class="sub">SOMETHING.</span>
+                </div>
+                <div class="contact-links">
+                  <a href="mailto:your@email.com" class="c-link">
+                    <div class="c-link-left">
+                      <span class="c-link-type">Email</span>
+                      <span class="c-link-url">your@email.com</span>
+                    </div>
+                    <span class="c-link-arrow">↗</span>
+                  </a>
+                  <a href="https://github.com/aditya-muke" target="_blank" class="c-link">
+                    <div class="c-link-left">
+                      <span class="c-link-type">GitHub</span>
+                      <span class="c-link-url">github.com/aditya-muke</span>
+                    </div>
+                    <span class="c-link-arrow">↗</span>
+                  </a>
+                  <a href="https://linkedin.com/in/aditya-muke-55b019384" target="_blank" class="c-link">
+                    <div class="c-link-left">
+                      <span class="c-link-type">LinkedIn</span>
+                      <span class="c-link-url">aditya-muke-55b019384</span>
+                    </div>
+                    <span class="c-link-arrow">↗</span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="contact-form-side">
+                <label class="cf-label">Your name</label>
+                <input class="cf-input" type="text" placeholder="First Last" />
+                <label class="cf-label">Your email</label>
+                <input class="cf-input" type="email" placeholder="you@example.com" />
+                <label class="cf-label">Message</label>
+                <textarea class="cf-textarea" rows="4" placeholder="Hey Adi, let's collaborate on..."></textarea>
+                <button class="cf-submit">
+                  Send Message
+                  <span class="cf-submit-arrow">→</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <footer>
+            <span>© 2025 <strong>ADITYA MUKE</strong> — ALL RIGHTS RESERVED</span>
+            <span>WARDHA, MAHARASHTRA, INDIA</span>
+            <span>BUILT WITH NEXT.JS + TAILWIND + FRAMER MOTION</span>
+          </footer>
+
+          <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          SCRIPTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+          <script>
+/* ── Cursor ── */
+            const cur = document.getElementById('cursor');
+            const dot = document.getElementById('cursor-dot');
+            const coords = document.getElementById('cursor-coords');
+            let mx = 0, my = 0, cx = 0, cy = 0;
+document.addEventListener('mousemove', e => {mx = e.clientX; my = e.clientY; coords.textContent = `${mx}, ${my}`; });
+            (function moveCursor(){
+              cx += (mx - cx) * 0.18;
+            cy += (my - cy) * 0.18;
+            cur.style.left = cx + 'px';
+            cur.style.top  = cy + 'px';
+            dot.style.left = mx + 'px';
+            dot.style.top  = my + 'px';
+            coords.style.left = mx + 'px';
+            coords.style.top  = my + 'px';
+            requestAnimationFrame(moveCursor);
+})();
+
+            /* ── Hero letter scatter ── */
+            const nameEl = document.querySelector('.letter-row');
+            const word = nameEl.dataset.word;
+[...word].forEach((ch, i) => {
+  const s = document.createElement('span');
+            s.className = 'letter';
+            s.textContent = ch;
+            const rx = (Math.random() - 0.5) * 40;
+            const ry = (Math.random() - 0.5) * 30;
+            const rot = `${(Math.random() - 0.5) * 20}deg`;
+            s.style.cssText = `--rx:${rx};--ry:${ry};--rot:${rot}`;
+            if (ch === 'A' && i === 0) s.style.color = 'var(--acid)';
+            nameEl.appendChild(s);
+});
+
+/* ── Redacted reveal ── */
+document.querySelectorAll('.redact').forEach(el => {
+              el.addEventListener('click', () => el.classList.toggle('revealed'));
+});
+
+            /* ── Periodic table ── */
+            const elements = [
+            {sym:'C',   name:'C Language',    num:'01', cat:'cat-lang' },
+            {sym:'C++', name:'C Plus Plus',   num:'02', cat:'cat-lang' },
+            {sym:'Py',  name:'Python',        num:'03', cat:'cat-lang' },
+            {sym:'Jv',  name:'Java',          num:'04', cat:'cat-lang' },
+            {sym:'Wp',  name:'WordPress',     num:'05', cat:'cat-frame' },
+            {sym:'Ht',  name:'HTML5',         num:'06', cat:'cat-frame' },
+            {sym:'Cs',  name:'CSS3',          num:'07', cat:'cat-frame' },
+            {sym:'Ds',  name:'Data Science',  num:'08', cat:'cat-tool' },
+            {sym:'Ml',  name:'ML Basics',     num:'09', cat:'cat-tool' },
+            {sym:'Gi',  name:'Git',           num:'10', cat:'cat-tool' },
+            {sym:'Lx',  name:'Linux CLI',     num:'11', cat:'cat-tool' },
+            {sym:'Ql',  name:'SQL Basics',    num:'12', cat:'cat-tool' },
+            {sym:'Qk',  name:'Quick Learn',   num:'13', cat:'cat-soft' },
+            {sym:'Co',  name:'Collab',        num:'14', cat:'cat-soft' },
+            {sym:'Ps',  name:'Prob. Solve',   num:'15', cat:'cat-soft' },
+            {sym:'Ad',  name:'Adaptable',     num:'16', cat:'cat-soft' },
+            ];
+            const grid = document.getElementById('periodicGrid');
+elements.forEach((el, i) => {
+  const d = document.createElement('div');
+            d.className = 'element reveal';
+            d.style.transitionDelay = (i * 0.04) + 's';
+            d.innerHTML = `
+            <span class="el-num">${el.num}</span>
+            <span class="el-sym">${el.sym}</span>
+            <span class="el-name">${el.name}</span>
+            <span class="el-cat ${el.cat}"></span>
+            `;
+            grid.appendChild(d);
+});
+
+/* ── Intersection Observer (scroll reveals) ── */
+const observer = new IntersectionObserver((entries) => {
+              entries.forEach(e => {
+                if (e.isIntersecting) {
+                  e.target.classList.add('visible');
+                  if (e.target.classList.contains('scan-reveal')) {
+                    setTimeout(() => e.target.classList.add('scanned'), 100);
+                  }
+                  observer.unobserve(e.target);
+                }
+              });
+}, {threshold: 0.08 });
+
+document.querySelectorAll('.reveal, .scan-reveal').forEach(el => observer.observe(el));
+          </script>
+        </body>
+      </html>
+    </>
+  );
+}
